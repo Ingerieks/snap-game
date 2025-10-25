@@ -1,32 +1,32 @@
-import { getUpdatedCards, getSnapScores } from "../utils/gameHelpers";
+import { checkSnap } from "../../lib/gameLogic";
 
 describe("getSnapScores", () => {
   it("returns true for matching values", () => {
     const cards = [
-      { value: "K", suit: "hearts" },
-      { value: "K", suit: "spades" },
+      { value: "K", suit: "hearts", image: "" },
+      { value: "K", suit: "spades", image: "" },
     ];
-    expect(getSnapScores(cards)).toEqual({ value: true });
+    expect(checkSnap(cards)).toEqual({ value: true });
   });
 
   it("returns true for matching suits", () => {
     const cards = [
-      { value: "2", suit: "clubs" },
-      { value: "7", suit: "clubs" },
+      { value: "2", suit: "clubs", image: "" },
+      { value: "7", suit: "clubs", image: "" },
     ];
-    expect(getSnapScores(cards)).toEqual({ suit: true });
+    expect(checkSnap(cards)).toEqual({ suit: true });
   });
 
-  it("returns false when cards don't match", () => {
+  it("returns null when cards don't match", () => {
     const cards = [
-      { value: "2", suit: "hearts" },
-      { value: "3", suit: "clubs" },
+      { value: "2", suit: "hearts", image: "" },
+      { value: "3", suit: "clubs", image: "" },
     ];
-    expect(getSnapScores(cards)).toEqual(false);
+    expect(checkSnap(cards)).toEqual(null);
   });
 
   it("handles less than two cards", () => {
-    const cards = [{ value: "2", suit: "hearts" }];
-    expect(getSnapScores(cards)).toEqual(false);
+    const cards = [{ value: "2", suit: "hearts", image: "" }];
+    expect(checkSnap(cards)).toEqual(null);
   });
 });
