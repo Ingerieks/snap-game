@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getUpdatedCards, placeHolder } from "../utils/gameHelpers";
-import DisplayCards from "./displayCards";
+import { getSnapScores, handleNewCard, placeHolder } from "../../lib/gameLogic";
 import Counter from "./counter";
 import SnapSuccess from "./snapSuccess";
 import ScoreCard from "./scoreCard";
 import { ICards } from "../types/cards";
-import { IUpdatedCard } from "../types/updatedCards";
+import Cards from "./cards";
+import Buttons from "./buttons";
 
-export default function Cards() {
+export default function GameTable() {
   const [isLoading, setIsLoading] = useState(false);
   const [deckId, setDeckId] = useState("");
   const [cards, setCards] = useState<ICards[]>(placeHolder);
@@ -28,7 +28,6 @@ export default function Cards() {
 
   const handleClick = async () => {
     if (isLoading) {
-      console.log("returning in isLoading block", isLoading);
       return;
     }
 
@@ -50,15 +49,15 @@ export default function Cards() {
     const result = await response.json();
     if (result.success) {
       const newCard = result.cards?.[0];
-      const { updated, snapResult } = getUpdatedCards(
-        cards,
-        newCard
-      ) as IUpdatedCard;
+      const updated = handleNewCard(cards, newCard) as ICards[];
+      const snapResult = getSnapScores(updated);
       if (updated) {
         setCards(updated);
         if (snapResult.value) setSnapValue(snapValue + 1);
         if (snapResult.suit) setSnapSuit(snapSuit + 1);
         setTotalCards(totalCards - 1);
+      } else {
+        console.log("");
       }
     } else {
       setRestart(true);
@@ -79,28 +78,10 @@ export default function Cards() {
             <SnapSuccess cards={cards} />
           </div>
           <div className="flex justify-center items center">
-            <DisplayCards cards={cards} />
+            <Cards cards={cards} />
           </div>
           <div className="my-6">
-            {isLoading ? (
-              <div className="flex justify-center">
-                <button
-                  className="border-3 border-black rounded-xs p-1 bg-stone-200"
-                  onClick={handleClick}
-                >
-                  loading
-                </button>
-              </div>
-            ) : (
-              <div className="flex justify-center">
-                <button
-                  className="border-3 border-black rounded-xs p-1 bg-stone-200"
-                  onClick={handleClick}
-                >
-                  draw card
-                </button>
-              </div>
-            )}
+            <Buttons isLoading={isLoading} handleClick={handleClick} />
           </div>
         </>
       ) : (
