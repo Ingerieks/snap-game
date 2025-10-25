@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSnapScores, handleNewCard, placeHolder } from "../../lib/gameLogic";
+import { checkSnap, handleNewCard, placeHolder } from "../../lib/gameLogic";
 import Counter from "./counter";
 import SnapSuccess from "./snapSuccess";
 import ScoreCard from "./scoreCard";
@@ -17,6 +17,7 @@ export default function GameTable() {
   const [snapValue, setSnapValue] = useState(0);
   const [totalCards, setTotalCards] = useState(52);
   const [restart, setRestart] = useState(false);
+  const [snapResult, setSnapResult] = useState<ISnapResult | null>(null);
 
   useEffect(() => {
     fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
@@ -50,15 +51,13 @@ export default function GameTable() {
     if (result.success) {
       const newCard = result.cards?.[0];
       const updated = handleNewCard(cards, newCard) as ICards[];
-      const snapResult = getSnapScores(updated);
-      if (updated) {
-        setCards(updated);
-        if (snapResult.value) setSnapValue(snapValue + 1);
-        if (snapResult.suit) setSnapSuit(snapSuit + 1);
-        setTotalCards(totalCards - 1);
-      } else {
-        console.log("");
-      }
+
+      const snap = checkSnap(updated);
+      setSnapResult(snap);
+      setCards(updated);
+      if (snapResult?.value) setSnapValue(snapValue + 1);
+      if (snapResult?.suit) setSnapSuit(snapSuit + 1);
+      setTotalCards(totalCards - 1);
     } else {
       setRestart(true);
       return result.error;
@@ -74,9 +73,8 @@ export default function GameTable() {
           <div className="flex justify-end">
             <Counter totalCards={totalCards} />
           </div>
-          <div className="h-36">
-            <SnapSuccess cards={cards} />
-          </div>
+          {snapResult && <SnapSuccess snapResult={snapResult} />}
+          <div className="h-36"></div>
           <div className="flex justify-center items center">
             <Cards cards={cards} />
           </div>
@@ -86,7 +84,11 @@ export default function GameTable() {
         </>
       ) : (
         <div className="flex justify-center my-24">
-          <ScoreCard snapValue={snapValue} snapSuit={snapSuit} />
+          <ScoreCard
+            snapValue={snapValue}
+            snapSuit={snapSuit}
+            setCards={setCards}
+          />
         </div>
       )}
     </div>
