@@ -1,4 +1,7 @@
-export function getSnapScores(card) {
+import { ICards } from "../types/cards";
+import { IUpdatedCard } from "../types/updatedCards";
+
+export function getSnapScores(card: ICards[]) {
   if (card && card.length > 1) {
     if (card[0]?.value === card[1]?.value) {
       const value = true;
@@ -8,14 +11,14 @@ export function getSnapScores(card) {
       const suit = true;
       return { suit };
     } else {
-      return false;
+      return { value: false, suit: false };
     }
   } else {
     return false;
   }
 }
 
-export function getUpdatedCards(prevCards, newCard) {
+export function getUpdatedCards(prevCards: ICards[], newCard: ICards[]) {
   if (!newCard) return [];
 
   const updated = [...prevCards, newCard];
@@ -23,6 +26,14 @@ export function getUpdatedCards(prevCards, newCard) {
     updated.shift();
   }
 
-  const snapResult = getSnapScores(updated);
+  const snapResult = getSnapScores(updated as ICards[]);
   return { updated, snapResult };
 }
+
+export const placeHolder = [
+  {
+    image: "https://deckofcardsapi.com/static/img/back.png",
+    value: "0",
+    suit: "none",
+  },
+];
