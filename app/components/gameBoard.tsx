@@ -56,7 +56,6 @@ export default function GameTable() {
       const snap = checkSnap(updated);
       setSnapResult(snap);
       setCards(updated);
-      console.log(snapResult, "SNAPRESULT");
       if (snapResult == ESnapType.VALUE) setSnapValue(snapValue + 1);
       if (snapResult == ESnapType.SUIT) setSnapSuit(snapSuit + 1);
       setTotalCards(totalCards - 1);
