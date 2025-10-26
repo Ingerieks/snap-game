@@ -9,11 +9,11 @@ interface CardProps {
 
 export default function Cards({ cards, isLoading }: CardProps) {
   return (
-    <div className="flex flex-col w-[50vw]">
+    <div className="flex flex-col w-[90vw] lg:w-[50vw]">
       {cards.length < 1 ? (
         <>
           <div className="flex justify-between">
-            <div className="border-2 border-gray-700 w-80 h-450px rounded-lg flex justify-center items-center"></div>
+            <div className="md:border-2 md:border-gray-700 w-80 h-450px rounded-lg flex justify-center items-center"></div>
             <div className="flex items-center">
               {isLoading && <LoadingSpinner />}
             </div>
@@ -28,7 +28,7 @@ export default function Cards({ cards, isLoading }: CardProps) {
       ) : cards.length == 1 ? (
         <>
           <div className="flex justify-between">
-            <div className="border-2 border-gray-700 w-80 h-450px rounded-lg"></div>
+            <div className="md:border-2 md:border-gray-700 w-80 h-450px rounded-lg"></div>
             <div className="flex items-center">
               {isLoading && <LoadingSpinner />}
             </div>

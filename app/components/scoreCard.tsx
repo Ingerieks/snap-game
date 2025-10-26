@@ -41,8 +41,8 @@ export default function ScoreCard({
   }
 
   return (
-    <div className="border border-gray-200 shadow-md rounded-md w-1/6 flex flex-col justify-center items-center">
-      <div className="px-6 py-4 text-xl">
+    <div className="border border-gray-200 shadow-md rounded-md w-[40vw]flex flex-col justify-center items-center">
+      <div className="px-6 py-4 md:text-base lg:text-xl">
         <h1>SNAP suit score: {snapSuit}</h1>
         <h1>SNAP value score: {snapValue}</h1>
         <div className="my-4">
