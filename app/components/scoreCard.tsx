@@ -1,6 +1,6 @@
 "use client";
 
-import { ICards } from "../types";
+import { ESnapType, ICards } from "../types";
 import Button from "./button";
 
 interface ScoreCardPageProps {
@@ -9,6 +9,7 @@ interface ScoreCardPageProps {
   deckId: string | null;
   setCards: ([]: ICards[]) => void | null;
   setTotalCards: (n: number) => void | null;
+  setSnapResult: (arg0: ESnapType | null) => void | null;
   totalCards: number;
 }
 
@@ -19,6 +20,7 @@ export default function ScoreCard({
   setCards,
   setTotalCards,
   totalCards,
+  setSnapResult,
 }: ScoreCardPageProps) {
   async function handleClick() {
     const response = await fetch(
@@ -38,6 +40,7 @@ export default function ScoreCard({
 
     setCards([]);
     setTotalCards(52);
+    setSnapResult(null);
   }
 
   return (

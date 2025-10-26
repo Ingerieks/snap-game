@@ -16,8 +16,8 @@ export default function GameTable() {
   const [snapSuit, setSnapSuit] = useState(0);
   const [snapValue, setSnapValue] = useState(0);
   const [totalCards, setTotalCards] = useState(52);
-  const [restart, setRestart] = useState(false);
   const [snapResult, setSnapResult] = useState<ESnapType | null>(null);
+
   useEffect(() => {
     fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
       .then((response) => response.json())
@@ -60,7 +60,6 @@ export default function GameTable() {
       if (snapResult == ESnapType.SUIT) setSnapSuit(snapSuit + 1);
       setTotalCards(totalCards - 1);
     } else {
-      setRestart(true);
       return result.error;
     }
     setIsLoading(false);
@@ -86,6 +85,7 @@ export default function GameTable() {
             snapSuit={snapSuit}
             setCards={setCards}
             totalCards={totalCards}
+            setSnapResult={setSnapResult}
           />
         </div>
       ) : (
