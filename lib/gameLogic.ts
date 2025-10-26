@@ -1,4 +1,4 @@
-import { ESnapType, ICards } from "@/app/types";
+import { ESnapType, ICards } from "../app/types";
 
 export function checkSnap(card: ICards[]) {
   if (card && card.length > 1) {

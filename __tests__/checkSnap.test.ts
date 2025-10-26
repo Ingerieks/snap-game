@@ -6,7 +6,7 @@ describe("getSnapScores", () => {
       { value: "K", suit: "hearts", image: "" },
       { value: "K", suit: "spades", image: "" },
     ];
-    expect(checkSnap(cards)).toEqual({ value: true });
+    expect(checkSnap(cards)).toEqual("value");
   });
 
   it("returns true for matching suits", () => {
@@ -14,7 +14,7 @@ describe("getSnapScores", () => {
       { value: "2", suit: "clubs", image: "" },
       { value: "7", suit: "clubs", image: "" },
     ];
-    expect(checkSnap(cards)).toEqual({ suit: true });
+    expect(checkSnap(cards)).toEqual("suit");
   });
 
   it("returns null when cards don't match", () => {
