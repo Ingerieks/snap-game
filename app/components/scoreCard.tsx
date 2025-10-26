@@ -14,7 +14,7 @@ export default function ScoreCard({ snapValue, snapSuit }: ScoreCardPageProps) {
         <h1>SNAP suit score: {snapSuit}</h1>
         <h1>SNAP value score: {snapValue}</h1>
         <div className="my-4">
-          <Button restart={true} handleClick={() => console.log("restart")} />
+          <Button totalCards={0} handleClick={() => console.log("restart")} />
         </div>
       </div>
     </div>

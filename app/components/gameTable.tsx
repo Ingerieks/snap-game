@@ -18,7 +18,6 @@ export default function GameTable() {
   const [totalCards, setTotalCards] = useState(52);
   const [restart, setRestart] = useState(false);
   const [snapResult, setSnapResult] = useState<ISnapResult | null>(null);
-  console.log(cards, "cards");
   useEffect(() => {
     fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
       .then((response) => response.json())
@@ -78,21 +77,21 @@ export default function GameTable() {
       <div className="flex justify-center items center">
         <Cards cards={cards} isLoading={isLoading} />
       </div>
-      {restart ? (
-        <div className="flex justify-center my-12">
+      {totalCards === 0 ? (
+        <div className="flex justify-center mt-12">
           <ScoreCard snapValue={snapValue} snapSuit={snapSuit} />
         </div>
       ) : (
         <div className="my-12">
           <Button
-            restart={restart}
+            totalCards={totalCards}
             isLoading={isLoading}
             handleClick={handleClick}
           />
         </div>
       )}
 
-      {cards.length > 1 && (
+      {cards.length >= 1 && totalCards != 0 && (
         <div className="mr-24 flex justify-end">
           <Counter totalCards={totalCards} />
         </div>

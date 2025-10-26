@@ -6,13 +6,13 @@ import { ICards } from "../types/cards";
 interface ButtonPageProps {
   isLoading?: boolean;
   handleClick: () => void;
-  restart: boolean;
+  totalCards: number;
 }
 
 export default function Button({
   isLoading,
   handleClick,
-  restart,
+  totalCards,
 }: ButtonPageProps) {
   return (
     <>
@@ -25,7 +25,7 @@ export default function Button({
             handleClick();
           }}
         >
-          {restart ? "Play again" : "Draw card"}
+          {totalCards === 0 ? "Play again" : "Draw card"}
         </button>
       </div>
     </>
