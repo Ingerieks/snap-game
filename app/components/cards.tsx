@@ -1,5 +1,6 @@
 "use client";
 import { ICards } from "../types/cards";
+import { LoadingSpinner } from "./loadingSpinner";
 
 interface CardProps {
   cards: ICards[];
@@ -13,6 +14,7 @@ export default function Cards({ cards, isLoading }: CardProps) {
         <>
           <div className="flex justify-between">
             <div className="border-2 border-gray-700 w-80 h-450px rounded-lg flex justify-center items-center"></div>
+            {isLoading && <LoadingSpinner />}
             <img
               className="shadow-2xl"
               src="https://deckofcardsapi.com/static/img/back.png"
@@ -25,6 +27,7 @@ export default function Cards({ cards, isLoading }: CardProps) {
         <>
           <div className="flex justify-between">
             <div className="border-2 border-gray-700 w-80 h-450px rounded-lg"></div>
+            {isLoading && <LoadingSpinner />}
             <img
               className="shadow-2xl"
               src={`${cards[0].image}`}
@@ -35,17 +38,30 @@ export default function Cards({ cards, isLoading }: CardProps) {
         </>
       ) : cards.length > 1 ? (
         <>
-          <div className="flex flex-row justify-between">
-            {cards.map((card, index) => (
-              <div key={index} className="rounded-lg">
+          <div className="flex flex-row justify-between items-center">
+            {cards[0] && (
+              <div className="rounded-lg">
                 <img
                   className="shadow-2xl"
-                  src={`${card.image}`}
+                  src={cards[0].image}
                   alt="card"
                   width="350px"
-                ></img>
+                />
               </div>
-            ))}
+            )}
+
+            {isLoading && <LoadingSpinner />}
+
+            {cards[1] && (
+              <div className="rounded-lg">
+                <img
+                  className="shadow-2xl"
+                  src={cards[1].image}
+                  alt="card"
+                  width="350px"
+                />
+              </div>
+            )}
           </div>
         </>
       ) : null}
