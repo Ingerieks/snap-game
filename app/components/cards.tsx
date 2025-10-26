@@ -1,5 +1,5 @@
 "use client";
-import { ICards } from "../types/cards";
+import { ICards } from "../types";
 import { LoadingSpinner } from "./loadingSpinner";
 
 interface CardProps {

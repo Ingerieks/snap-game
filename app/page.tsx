@@ -1,4 +1,4 @@
-import GameTable from "./components/gameTable";
+import GameTable from "./components/gameBoard";
 
 export default function Home() {
   return (

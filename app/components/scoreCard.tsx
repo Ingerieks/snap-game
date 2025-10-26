@@ -1,6 +1,6 @@
 "use client";
 
-import { ICards } from "../types/cards";
+import { ICards } from "../types";
 import Button from "./button";
 
 interface ScoreCardPageProps {

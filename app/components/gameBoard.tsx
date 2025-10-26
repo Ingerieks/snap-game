@@ -5,7 +5,7 @@ import { checkSnap, handleNewCard, placeHolder } from "../../lib/gameLogic";
 import Counter from "./counter";
 import SnapSuccess from "./snapSuccess";
 import ScoreCard from "./scoreCard";
-import { ICards } from "../types/cards";
+import { ESnapType, ICards } from "../types";
 import Cards from "./cards";
 import Button from "./button";
 
@@ -17,7 +17,7 @@ export default function GameTable() {
   const [snapValue, setSnapValue] = useState(0);
   const [totalCards, setTotalCards] = useState(52);
   const [restart, setRestart] = useState(false);
-  const [snapResult, setSnapResult] = useState<ISnapResult | null>(null);
+  const [snapResult, setSnapResult] = useState<ESnapType | null>(null);
   useEffect(() => {
     fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
       .then((response) => response.json())
@@ -56,8 +56,9 @@ export default function GameTable() {
       const snap = checkSnap(updated);
       setSnapResult(snap);
       setCards(updated);
-      if (snapResult?.value) setSnapValue(snapValue + 1);
-      if (snapResult?.suit) setSnapSuit(snapSuit + 1);
+      console.log(snapResult, "SNAPRESULT");
+      if (snapResult == ESnapType.VALUE) setSnapValue(snapValue + 1);
+      if (snapResult == ESnapType.SUIT) setSnapSuit(snapSuit + 1);
       setTotalCards(totalCards - 1);
     } else {
       setRestart(true);

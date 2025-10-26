@@ -5,3 +5,8 @@ export interface ICards {
   code?: string;
   images?: string[];
 }
+
+export enum ESnapType {
+  VALUE = "value",
+  SUIT = "suit",
+}
