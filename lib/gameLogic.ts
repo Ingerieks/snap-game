@@ -28,7 +28,7 @@ export function handleNewCard(prevCards: ICards[], newCard: ICards) {
 
 export const placeHolder = [
   {
-    image: "https://deckofcardsapi.com/static/img/back.png",
+    image: "",
     value: "0",
     suit: "none",
   },
