@@ -14,7 +14,9 @@ export default function Cards({ cards, isLoading }: CardProps) {
         <>
           <div className="flex justify-between">
             <div className="border-2 border-gray-700 w-80 h-450px rounded-lg flex justify-center items-center"></div>
-            {isLoading && <LoadingSpinner />}
+            <div className="flex items-center">
+              {isLoading && <LoadingSpinner />}
+            </div>
             <img
               className="shadow-2xl"
               src="https://deckofcardsapi.com/static/img/back.png"
@@ -27,7 +29,9 @@ export default function Cards({ cards, isLoading }: CardProps) {
         <>
           <div className="flex justify-between">
             <div className="border-2 border-gray-700 w-80 h-450px rounded-lg"></div>
-            {isLoading && <LoadingSpinner />}
+            <div className="flex items-center">
+              {isLoading && <LoadingSpinner />}
+            </div>
             <img
               className="shadow-2xl"
               src={`${cards[0].image}`}
