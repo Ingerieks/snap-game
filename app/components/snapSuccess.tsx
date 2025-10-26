@@ -15,11 +15,11 @@ export default function SnapSuccess({ snapResult }: SnapSuccessPageProps) {
     <div className="my-6">
       {snapResult.value ? (
         <div className="flex justify-center">
-          <SuccessMessage snapSuccess={"SNAP value!"} />
+          <SuccessMessage snapSuccess={"SNAP VALUE!"} />
         </div>
       ) : snapResult.suit ? (
         <div className="flex justify-center">
-          <SuccessMessage snapSuccess={"SNAP suit!"} />
+          <SuccessMessage snapSuccess={"SNAP SUIT!"} />
         </div>
       ) : null}
     </div>

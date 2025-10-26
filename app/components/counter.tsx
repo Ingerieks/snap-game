@@ -6,8 +6,8 @@ interface CounterPageProps {
 
 export default function Counter({ totalCards }: CounterPageProps) {
   return (
-    <div className="border border-black p-4 text-xl mt-6 mx-6">
-      <h1 className="">{totalCards}</h1>
+    <div className="rounded border border-gray-200 text-gray-700 shadow-md p-2 text-xl">
+      <h1 className="">{totalCards} cards remaining</h1>
     </div>
   );
 }

@@ -8,11 +8,8 @@ export default function SuccessMessage({
   snapSuccess,
 }: SuccessMessagePageProps) {
   return (
-    <div className="border border-black w-1/6 flex flex-col justify-center items-center">
-      <div className="">
-        <h1>CONGRATULATIONS!</h1>
-      </div>
-      <div className="px-2 py-1">
+    <div className="text-2xl text-gray-700">
+      <div>
         <h1>{snapSuccess}</h1>
       </div>
     </div>
