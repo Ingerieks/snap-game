@@ -1,4 +1,4 @@
-import { checkSnap } from "../../lib/gameLogic";
+import { checkSnap } from "../lib/gameLogic";
 
 describe("getSnapScores", () => {
   it("returns true for matching values", () => {

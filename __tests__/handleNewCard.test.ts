@@ -1,4 +1,4 @@
-import { handleNewCard } from "../../lib/gameLogic";
+import { handleNewCard } from "../lib/gameLogic";
 
 interface ICards {
   id: string;
