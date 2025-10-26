@@ -35,7 +35,7 @@ export const placeHolder = [
 ];
 
 export function playCardDrawSound() {
-  const audio = new Audio("/cardSound.mp3");
+  const audio = new Audio("/cardsound.mp3");
   audio.volume = 0.5;
   audio.play().catch((err) => console.warn("Audio play blocked:", err));
 }
