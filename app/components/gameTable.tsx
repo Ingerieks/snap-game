@@ -79,7 +79,14 @@ export default function GameTable() {
       </div>
       {totalCards === 0 ? (
         <div className="flex justify-center mt-12">
-          <ScoreCard snapValue={snapValue} snapSuit={snapSuit} />
+          <ScoreCard
+            deckId={deckId}
+            setTotalCards={setTotalCards}
+            snapValue={snapValue}
+            snapSuit={snapSuit}
+            setCards={setCards}
+            totalCards={totalCards}
+          />
         </div>
       ) : (
         <div className="my-12">
