@@ -7,20 +7,16 @@ interface ScoreCardPageProps {
   snapValue: number;
   snapSuit: number;
   deckId: string | null;
-  setCards: ([]: ICards[]) => void | null;
-  setTotalCards: (n: number) => void | null;
-  setSnapResult: (arg0: ESnapType | null) => void | null;
   totalCards: number;
+  resetGameState: () => void;
 }
 
 export default function ScoreCard({
   snapValue,
   snapSuit,
   deckId,
-  setCards,
-  setTotalCards,
   totalCards,
-  setSnapResult,
+  resetGameState,
 }: ScoreCardPageProps) {
   async function handleClick() {
     const response = await fetch(
@@ -37,10 +33,7 @@ export default function ScoreCard({
       console.log({ "api error": await response.text() });
       throw new Error(`Error! status: ${response.status}`);
     }
-
-    setCards([]);
-    setTotalCards(52);
-    setSnapResult(null);
+    resetGameState();
   }
 
   return (

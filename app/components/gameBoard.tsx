@@ -65,6 +65,14 @@ export default function GameTable() {
     setIsLoading(false);
   };
 
+  function resetGameState() {
+    setCards([]);
+    setTotalCards(52);
+    setSnapResult(null);
+    setSnapValue(0);
+    setSnapSuit(0);
+  }
+
   return (
     <div className="flex flex-col w-full">
       <div className="">
@@ -80,12 +88,10 @@ export default function GameTable() {
         <div className="flex justify-center mt-12">
           <ScoreCard
             deckId={deckId}
-            setTotalCards={setTotalCards}
             snapValue={snapValue}
             snapSuit={snapSuit}
-            setCards={setCards}
             totalCards={totalCards}
-            setSnapResult={setSnapResult}
+            resetGameState={resetGameState}
           />
         </div>
       ) : (
