@@ -7,23 +7,24 @@ import SnapSuccess from "./snapSuccess";
 import ScoreCard from "./scoreCard";
 import { ICards } from "../types/cards";
 import Cards from "./cards";
-import Buttons from "./buttons";
+import Button from "./button";
 
 export default function GameTable() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [deckId, setDeckId] = useState("");
-  const [cards, setCards] = useState<ICards[]>(placeHolder);
+  const [isLoading, setIsLoading] = useState(true);
+  const [deckId, setDeckId] = useState(null);
+  const [cards, setCards] = useState<ICards[]>([]);
   const [snapSuit, setSnapSuit] = useState(0);
   const [snapValue, setSnapValue] = useState(0);
   const [totalCards, setTotalCards] = useState(52);
   const [restart, setRestart] = useState(false);
   const [snapResult, setSnapResult] = useState<ISnapResult | null>(null);
-
+  console.log(cards, "cards");
   useEffect(() => {
     fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
       .then((response) => response.json())
       .then((data) => {
         setDeckId(data.deck_id);
+        setIsLoading(false);
       });
   }, []);
 
@@ -44,6 +45,7 @@ export default function GameTable() {
     );
 
     if (!response.ok) {
+      console.log({ "api error": await response.text() });
       throw new Error(`Error! status: ${response.status}`);
     }
 
@@ -67,28 +69,32 @@ export default function GameTable() {
 
   return (
     <div className="flex flex-col w-full">
-      <h1>SNAP!</h1>
-      {!restart ? (
-        <>
-          <div className="flex justify-end">
-            <Counter totalCards={totalCards} />
-          </div>
-          {snapResult && <SnapSuccess snapResult={snapResult} />}
-          <div className="h-36"></div>
-          <div className="flex justify-center items center">
-            <Cards cards={cards} />
-          </div>
-          <div className="my-6">
-            <Buttons isLoading={isLoading} handleClick={handleClick} />
-          </div>
-        </>
+      <div className="">
+        <h1 className="mx-12 my-4 text-4xl text-gray-700">SNAP!</h1>
+      </div>
+      <div className="h-12 mb-12">
+        {snapResult && <SnapSuccess snapResult={snapResult} />}
+      </div>
+      <div className="flex justify-center items center">
+        <Cards cards={cards} isLoading={isLoading} />
+      </div>
+      {restart ? (
+        <div className="flex justify-center my-12">
+          <ScoreCard snapValue={snapValue} snapSuit={snapSuit} />
+        </div>
       ) : (
-        <div className="flex justify-center my-24">
-          <ScoreCard
-            snapValue={snapValue}
-            snapSuit={snapSuit}
-            setCards={setCards}
+        <div className="my-12">
+          <Button
+            restart={restart}
+            isLoading={isLoading}
+            handleClick={handleClick}
           />
+        </div>
+      )}
+
+      {cards.length > 1 && (
+        <div className="mr-24 flex justify-end">
+          <Counter totalCards={totalCards} />
         </div>
       )}
     </div>
